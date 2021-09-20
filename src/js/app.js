@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function favBlockInit() {
-    if (JSON.parse(localStorage.getItem("favs")).length > 0) {
+    if (JSON.parse(localStorage.getItem("favs"))) {
       locations.favorites = JSON.parse(localStorage.getItem("favs"));
       ticketsUI.renderFavorites(locations.favorites);
       ticketsUI.assignDelFavListener();
