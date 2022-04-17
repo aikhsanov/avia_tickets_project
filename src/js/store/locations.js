@@ -1,12 +1,12 @@
 import api from "../services/apiService";
 import { formatDate } from "../helpers/date";
 
-class Locations {
+export class Locations {
   constructor(api, helpers) {
     this.api = api;
     this.countries = null;
     this.cities = null;
-    this.shortCitiesList = null;
+    this.shortCitiesList = {};
     this.lastSearch = {};
     this.airlines = {};
     this.favorites = [];
@@ -29,7 +29,7 @@ class Locations {
   }
 
   createShortCitiesList(cities) {
-    console.log(cities);
+    // console.log(cities);
     return Object.entries(cities).reduce((acc, [, city]) => {
       // console.log(key);
       acc[city.full_name] = null;
@@ -39,6 +39,7 @@ class Locations {
 
   serializeCountries(countries) {
     // { 'Country code': { ... } }
+    if(!countries) return {}
     return countries.reduce((acc, country) => {
       acc[country.code] = country;
       return acc;
@@ -57,10 +58,12 @@ class Locations {
   }
   serializeAirlines(airlines) {
     // { 'airline code': { ... } }
+
     return airlines.reduce((acc, item) => {
-      item.logo = `http://pics.avs.io/200/200/${item.code}.png`;
-      item.name = item.name || item.name_translations.en;
-      acc[item.code] = item;
+      const itemCopy = {...item}
+      itemCopy.logo = `http://pics.avs.io/200/200/${itemCopy.code}.png`;
+      itemCopy.name = itemCopy.name || itemCopy.name_translations.en;
+      acc[itemCopy.code] = itemCopy;
       return acc;
     }, {});
   }
@@ -73,7 +76,7 @@ class Locations {
   }
 
   getCityNameByCode(code) {
-    return this.cities[code].name;
+    return this.cities[code].city;
   }
 
   getCountryNameByCode(code) {
@@ -94,6 +97,7 @@ class Locations {
   }
 
   serializeTickets(tickets) {
+    // console.log(tickets);
     return Object.values(tickets).map((ticket) => {
       return {
         ...ticket,
