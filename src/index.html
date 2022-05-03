@@ -51,19 +51,19 @@
         <div class="row d-flex">
             <div class="col m6 mx-auto">
                 <div class="card">
-                    <form name="locationControls">
+                    <form name="locationControls" data-hook="mainForm">
                         <div class="card-content">
                             <span class="card-title">Card Title</span>
                             <div class="input-field">
-                                <input type="text" id="autocomplete-origin" class="autocomplete">
+                                <input type="text" id="autocomplete-origin" class="autocomplete" data-hook="autocompleteOrigin">
                                 <label for="autocomplete-origin">Origin</label>
                             </div>
                             <div class="input-field">
-                                <input type="text" id="autocomplete-destination" class="autocomplete">
+                                <input type="text" id="autocomplete-destination" class="autocomplete" data-hook="autocompleteDestination">
                                 <label for="autocomplete-destination">Destination</label>
                             </div>
-                            <div class="input-field">
-                                <input type="text" class="datepicker" id="datepicker-depart">
+                            <div class="input-field" data-hook="datepickerDepartWrapper" >
+                                <input type="text" class="datepicker" id="datepicker-depart" data-hook="datepickerDepartInput">
                                 <label for="datepicker-depart">Depart Date</label>
                             </div>
                             <div class="input-field">
